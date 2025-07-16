@@ -12,7 +12,7 @@ members = ["example"]
 
 [project]
 name = "ant-intl-alipayplus-mcp"
-version = "1.0.0"
+version = "1.0.1"
 description = "A Model Context Protocol (MCP) compatible server that integrates Ant International's AlipayPlus payment APIs, enabling AI assistants to handle payment and refund operations seamlessly."
 readme = "README.md"
 
@@ -25,7 +25,7 @@ license = { text = "MIT License" }
 requires-python = ">=3.11"
 dependencies = [
     "cryptography==44.0.3",
-    "mcp[cli]>=1.9.1",
+    "mcp[cli]>=1.11.1",
     "pycryptodome==3.22.0",
     "rsa>=4.9.1",
 ]
