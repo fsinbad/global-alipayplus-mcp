@@ -20,6 +20,9 @@ The AlipayPlus MCP Server wraps Ant International's AlipayPlus payment APIs into
 - **Customs Declare** (`customs_declare`): Declare a payment to customs or update an existing declaration
 - **Query Customs Declaration** (`query_customs_declare`): Inquire about the status of declared payments
 
+### 🏪 Merchant Operations
+- **Inquiry Merchant** (`inquiry_merchant`): Query merchant registration status from Alipay+ by referenceMerchantId, referenceStoreId, or registrationRequestId
+
 
 ## Prerequisites
 

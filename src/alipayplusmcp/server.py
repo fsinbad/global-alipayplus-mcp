@@ -26,6 +26,7 @@ from alipayplusmcp.sdk.request.pay.alipay_cancel_payment_request import AlipayCa
 from alipayplusmcp.sdk.request.pay.alipay_inquiry_payment_request import AlipayInquiryPaymentRequest
 from alipayplusmcp.sdk.request.pay.alipay_pay_request import AlipayPayRequest
 from alipayplusmcp.sdk.request.pay.alipay_refund_request import AlipayRefundRequest
+from alipayplusmcp.sdk.request.merchant.alipay_inquiry_merchant_request import AlipayInquiryMerchantRequest
 
 
 class Account:
@@ -260,6 +261,40 @@ def serve(account: Account) -> None:
             alipay_customs_inquire_request = AlipayCustomsInquireRequest()
             alipay_customs_inquire_request.declaration_request_ids = declaration_request_ids
             return client.execute(alipay_customs_inquire_request)
+        except AlipayApiException as aex:
+            return str(aex)
+        except Exception as e:
+            return str(e)
+
+    @server.tool()
+    def inquiry_merchant(reference_merchant_id: str = "",
+                         reference_store_id: str = "",
+                         registration_request_id: str = "") -> str:
+        """ The tool is used by the Acquiring Service Provider (ACQP) to inquire about the merchant registration status from Alipay+.
+
+        At least one of the parameters must be provided. registration_request_id takes precedence over reference_merchant_id and reference_store_id.
+
+        Args:
+            reference_merchant_id: The unique ID that is assigned by the ACQP to identify a merchant. Maximum length: 32 characters
+            reference_store_id: The unique ID that is assigned by the ACQP to identify a store, which is affiliated with the merchant. Maximum length: 32 characters
+            registration_request_id: The unique ID that is assigned by the ACQP to identify a registration request. Maximum length: 64 characters
+        """
+        try:
+            context = server.get_context()
+            client = context.request_context.lifespan_context["client"]
+
+            if not reference_merchant_id and not reference_store_id and not registration_request_id:
+                return "Error: At least one of reference_merchant_id, reference_store_id, or registration_request_id must be provided."
+
+            alipay_inquiry_merchant_request = AlipayInquiryMerchantRequest()
+            if reference_merchant_id:
+                alipay_inquiry_merchant_request.reference_merchant_id = reference_merchant_id
+            if reference_store_id:
+                alipay_inquiry_merchant_request.reference_store_id = reference_store_id
+            if registration_request_id:
+                alipay_inquiry_merchant_request.registration_request_id = registration_request_id
+
+            return client.execute(alipay_inquiry_merchant_request)
         except AlipayApiException as aex:
             return str(aex)
         except Exception as e:

@@ -18,3 +18,5 @@ class AlipayPlusPathConstants(Enum):
     CUSTOMS_DECLARE_PATH = "/aps/api/v1/customs/declare"
 
     INQUIRE_DECLARE_PATH = "/aps/api/v1/customs/inquireDeclarationRequests"
+
+    INQUIRY_MERCHANT_PATH = "/aps/api/v1/merchants/inquiryRegistrationStatus"
